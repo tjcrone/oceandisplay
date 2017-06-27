@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <style>
-.slide {
+div.slide {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -17,66 +17,68 @@
   z-index: 0;
 }
 
-.caption {
+div.caption {
   position: absolute;
   top: 20px;
   left: 20px;
-  display: none;
-  z-index: 0;
-  background-color:  rgba(60, 60, 60, 0.5);
+  display: block;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid black;
   border-radius: 6px;
-  padding: 4px;
-  color: white;
-  font-size: small;
+  padding: 6px;
 }
-
 </style>
 
 </head>
-
 <body>
 
-<img class="slide" src="img_la.jpg">
-<div class="caption">Caption 1</div>
+  <div class="slide">
+    <img src="img_la.jpg">
+    <div class="caption">
+      <p>Caption 1</p>
+      <p>Caption 1</p>
+    </div>
+  </div>
 
-<img class="slide" src="img_chicago.jpg">
-<div class="caption">Caption 2</div>
+  <div class="slide">
+    <img src="img_chicago.jpg">
+    <div class="caption" style="left: 40px">
+      <p>Caption 2</p>
+    </div>
+  </div>
 
-<img class="slide" src="img_ny.jpg">
-<div class="caption">Caption 3</div>
+  <div class="slide">
+    <img src="img_ny.jpg">
+    <div class="caption" style="left: 80px">
+      <p>Caption 3</p>
+    </div>
+  </div>
 
-<script>
+  <script>
+    var fadein_time = 1000;
+    var delay_time = 6000;
+    var slide_index = 0;
+    var slide_zindex = 1;
+    var slides = document.getElementsByClassName("slide");
 
-var fadein_time = 1000;
-var delay_time = 6000;
-var slide_index = 0;
-var slide_zindex = 1;
-var slides = document.getElementsByClassName("slide");
-var captions = document.getElementsByClassName("caption");
+    carousel();
+    function carousel() {
+      // reset index if necessary
+      if (slide_index == slides.length) {slide_index = 0}
 
-carousel();
-function carousel() {
-    // reset index if necessary
-    if (slide_index == slides.length) {slide_index = 0}
+      // fade in slide
+      slides[slide_index].style.zIndex = slide_zindex;
+      $(slides[slide_index]).hide();
+      $(slides[slide_index]).fadeIn(fadein_time);
 
-    // fade in slides
-    slides[slide_index].style.zIndex = slide_zindex; 
-    $(slides[slide_index]).hide();
-    $(slides[slide_index]).fadeIn(fadein_time);
+      // increment indices
+      slide_index++;
+      slide_zindex++;
 
-    // fade in captions
-    captions[slide_index].style.zIndex = slide_zindex; 
-    $(captions[slide_index]).hide();
-    $(captions[slide_index]).fadeIn(fadein_time);
-
-    // increment indices
-    slide_index++;
-    slide_zindex++;
-
-    // delay
-    setTimeout(carousel, delay_time); // Change image every 10 seconds
-}
-</script>
+      // delay
+      setTimeout(carousel, delay_time);
+    }
+  </script>
 
 </body>
 </html>
